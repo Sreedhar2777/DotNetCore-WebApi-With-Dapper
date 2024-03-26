@@ -1,3 +1,6 @@
+using DapperDemoData.Data;
+using DapperDemoData.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IDataAccess, DataAccess > ();
+builder.Services.AddTransient<IPersonRepository ,PersonRepository>();
+
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConsole();
+    builder.AddDebug(); 
+});
 
 var app = builder.Build();
 
